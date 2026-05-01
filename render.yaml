@@ -1,0 +1,49 @@
+# Render Blueprint — déploiement en un clic
+# https://render.com/docs/blueprint-spec
+#
+# Ce fichier crée automatiquement :
+#   - Un Web Service Docker (PHP Laravel)
+#   - Une base PostgreSQL gratuite (expire après 90 jours, suffisant pour l'évaluation)
+
+services:
+  - type: web
+    name: farmers-market-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    healthCheckPath: /api/health
+
+    envVars:
+      - key: APP_ENV
+        value: production
+
+      # Clé générée automatiquement par Render (sécurisée, stable entre redémarrages)
+      - key: APP_KEY
+        generateValue: true
+
+      - key: APP_DEBUG
+        value: false
+
+      # APP_URL sera mis à jour avec l'URL réelle après le premier déploiement
+      - key: APP_URL
+        value: https://farmers-market-api.onrender.com
+
+      # PostgreSQL : Render injecte DATABASE_URL automatiquement depuis la DB ci-dessous
+      - key: DB_CONNECTION
+        value: pgsql
+
+      - key: DATABASE_URL
+        fromDatabase:
+          name: farmers-market-db
+          property: connectionString
+
+      # Domaines autorisés pour Sanctum (ajouter l'URL GitHub Pages après déploiement)
+      - key: SANCTUM_STATEFUL_DOMAINS
+        value: localhost
+
+databases:
+  - name: farmers-market-db
+    plan: free
+    databaseName: farmers_market
+    user: farmer_user

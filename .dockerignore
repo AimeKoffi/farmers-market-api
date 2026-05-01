@@ -1,0 +1,9 @@
+vendor/
+node_modules/
+.git/
+.env
+storage/logs/*.log
+*.log
+.phpunit.result.cache
+.idea/
+.vscode/
