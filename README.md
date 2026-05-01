@@ -129,7 +129,8 @@ Duration: ~3s
 |------|-------|--------------|
 | Admin | admin@farmersmarket.ci | password |
 | Supervisor | supervisor@farmersmarket.ci | password |
-| Operator | operator@farmersmarket.ci | password |
+| Operator 1 | operator1@farmersmarket.ci | password |
+| Operator 2 | operator2@farmersmarket.ci | password |
 
 ---
 
